@@ -7,6 +7,12 @@ def maximo_encadenado(a: float, b: float, c: float) -> float:
     Restricción: Utilizar UNICAMENTE tres IFs y comparaciones encadenadas.
     Referencia: https://docs.python.org/3/reference/expressions.html#comparisons
     """
+    if a > b and a > c:
+        return a
+    elif b > a and b > c:
+        return b
+    else:
+        return c
     pass # Completar
 
 
