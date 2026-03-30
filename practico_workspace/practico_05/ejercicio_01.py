@@ -17,3 +17,14 @@ class Socio(Base):
 
     # Completar
 
+    # Juli:
+
+
+
+    # Valen:
+
+
+
+    # Facu:
+
+
