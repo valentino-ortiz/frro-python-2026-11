@@ -17,7 +17,16 @@ class Perro(Animal):
     sobrecargar el método descripción para que devuelva:
     "Soy un perro y" + método descripción del padre
     """
-    # Completar
+
+    # super() reutiliza el constructor y la descripción del padre en lugar de
+    # duplicarlos. El padre devuelve "Tengo ...", por eso se pasa a minúsculas
+    # para que el resultado sea "Soy un perro y tengo ..." como piden los tests.
+    def __init__(self, edad: int = 0, raza: str = ""):
+        super().__init__(edad)
+        self.raza = raza
+
+    def descripcion(self) -> str:
+        return "Soy un perro y " + super().descripcion().lower()
 
 
 # NO MODIFICAR - INICIO
@@ -39,12 +48,22 @@ from dataclasses import dataclass
 
 @dataclass
 class Animal:
-    pass # Completar
+    # El constructor lo genera @dataclass a partir del campo con valor por
+    # defecto; solo queda el método de comportamiento.
+    edad: int = 0
+
+    def descripcion(self) -> str:
+        return f"Tengo {self.edad} años"
 
 
 @dataclass
 class Perro(Animal):
-    pass # Completar
+    # Al decorar la subclase, "raza" se suma a los campos heredados (edad,
+    # raza) y no hace falta escribir __init__ ni llamar a super().__init__.
+    raza: str = ""
+
+    def descripcion(self) -> str:
+        return "Soy un perro y " + super().descripcion().lower()
 
 
 # NO MODIFICAR - INICIO

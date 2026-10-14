@@ -9,7 +9,15 @@ def superposicion_basico(lista_1: Iterable[Any], lista_2: Iterable[Any]) -> bool
 
     Restricción: Utilizar bucles anidados.
     """
-    pass # Completar
+
+    # Los bucles anidados comparan cada par posible; el return anticipado corta
+    # apenas aparece el primer elemento en común.
+    for a in lista_1:
+        for b in lista_2:
+            if a == b:
+                return True
+
+    return False
 
 
 # NO MODIFICAR - INICIO
@@ -24,6 +32,7 @@ assert not superposicion_basico(test_list, (2, "world", 30.85))
 
 def superposicion_in(lista_1: Iterable[Any], lista_2: Iterable[Any]) -> bool:
     """Re-Escribir utilizando un sólo bucle y el operador IN."""
+
     pass # Completar
 
 
@@ -41,7 +50,10 @@ def superposicion_any(lista_1: Iterable[Any], lista_2: Iterable[Any]) -> bool:
     """Re-Escribir utilizando sin bucles, el operador in y la funcion any.
     Referencia: https://docs.python.org/3/library/functions.html#any
     """
-    pass # Completar
+
+    # any corta en el primer True y el operador in reemplaza al bucle interno:
+    # misma lógica que la versión básica, pero en una sola expresión.
+    return any(x in lista_2 for x in lista_1)
 
 
 # NO MODIFICAR - INICIO
@@ -58,7 +70,10 @@ def superposicion_set(lista_1: Iterable[Any], lista_2: Iterable[Any]) -> bool:
     """Re-Escribir utilizando conjuntos (sets).
     Referencia: https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset
     """
-    pass # Completar
+
+    # La intersección expresa directamente "elementos en común" y la búsqueda
+    # en un set es O(1) en promedio (requiere elementos hashables).
+    return len(set(lista_1) & set(lista_2)) > 0
 
 
 # NO MODIFICAR - INICIO

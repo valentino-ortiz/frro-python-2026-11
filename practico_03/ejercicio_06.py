@@ -16,7 +16,22 @@ class Article:
 
     # NO MODIFICAR - FIN
 
-    # Completar
+    # __repr__ con !r devuelve una expresión que eval() puede reconstruir (aun
+    # con comillas en el nombre). __hash__ acompaña a __eq__: sin él, definir
+    # __eq__ dejaría a Article sin poder usarse en sets o como clave de dict.
+    def __str__(self) -> str:
+        return self.name
+
+    def __repr__(self) -> str:
+        return f"Article({self.name!r})"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Article):
+            return NotImplemented
+        return self.name == other.name
+
+    def __hash__(self) -> int:
+        return hash(self.name)
 
 
 # NO MODIFICAR - INICIO
@@ -49,7 +64,24 @@ class ShoppingCart:
 
     # NO MODIFICAR - FIN
 
-    # Completar
+    # __eq__ ordena por nombre antes de comparar para que el orden de los
+    # artículos no importe, y __add__ arma un carrito nuevo concatenando las
+    # listas sin modificar ninguno de los dos operandos.
+    def __str__(self) -> str:
+        return str([str(article) for article in self.articles])
+
+    def __repr__(self) -> str:
+        return f"ShoppingCart({self.articles!r})"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, ShoppingCart):
+            return NotImplemented
+        mis_articulos = sorted(self.articles, key=lambda a: a.name)
+        otros_articulos = sorted(other.articles, key=lambda a: a.name)
+        return mis_articulos == otros_articulos
+
+    def __add__(self, other: ShoppingCart) -> ShoppingCart:
+        return ShoppingCart(self.articles + other.articles)
 
 
 # NO MODIFICAR - INICIO

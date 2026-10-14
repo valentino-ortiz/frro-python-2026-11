@@ -10,7 +10,14 @@ comando (estando parados dentro de la carpeta practico_02):
 $PATH$/practico_02> python -m source.ejercicio_02
 """
 
-# Completar
+# Imports absolutos desde practico_02: con `python -m source.ejercicio_02` el
+# paquete raíz es `source`, por lo que `..config` o `...main` quedarían fuera
+# del paquete y fallarían con ImportError.
+import main
+from config import test_config
+from config.db_config import migrations
+from source import util
+from source.data import database
 
 
 # NO MODIFICAR - INICIO

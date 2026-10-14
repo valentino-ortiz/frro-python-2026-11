@@ -15,5 +15,10 @@ class Socio(Base):
     """
     __tablename__ = 'socios'
 
-    # Completar
-
+    # El atributo se llama "id" porque así lo usan los asserts de ejercicio_02,
+    # pero la columna se llama "id_socio" como pide el enunciado. La clave
+    # primaria ya es única, por eso no hace falta repetir unique=True.
+    id = Column('id_socio', Integer, primary_key=True, autoincrement=True)
+    dni = Column(Integer, unique=True)
+    nombre = Column(String(250))
+    apellido = Column(String(250))

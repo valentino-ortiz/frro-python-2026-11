@@ -3,15 +3,32 @@
 
 class Auto:
     """La clase auto tiene dos propiedades, precio y marca. La marca se define
-    obligatoriamente al construir la clase y siempre que se devuelve, se 
+    obligatoriamente al construir la clase y siempre que se devuelve, se
     devuelve con la primer letra en mayúscula y no se puede modificar. El precio
     puede modificarse pero cuando se muestra, se redondea a 2 decimales
-    
+
     Restricción: Usar Properties
-    
+
     Referencia: https://docs.python.org/3/library/functions.html#property"""
 
-    # Completar
+    # El valor se guarda tal cual en atributos "privados" y la transformación
+    # (capitalizar / redondear) se aplica al leer. "nombre" no tiene setter, por
+    # eso es de solo lectura; "precio" sí lo tiene y permite modificarlo.
+    def __init__(self, nombre: str, precio: float):
+        self._nombre = nombre
+        self._precio = precio
+
+    @property
+    def nombre(self) -> str:
+        return self._nombre.capitalize()
+
+    @property
+    def precio(self) -> float:
+        return round(self._precio, 2)
+
+    @precio.setter
+    def precio(self, nuevo_precio: float) -> None:
+        self._precio = nuevo_precio
 
 
 # NO MODIFICAR - INICIO
@@ -39,7 +56,23 @@ from dataclasses import dataclass
 class Auto:
     """Re-Escribir utilizando DataClasses"""
 
-    # Completar
+    # Los campos "privados" hacen que @dataclass genere el __init__, y las
+    # properties siguen exponiendo la API pública (nombre de solo lectura,
+    # precio redondeado y modificable) sin escribir el constructor a mano.
+    _nombre: str
+    _precio: float
+
+    @property
+    def nombre(self) -> str:
+        return self._nombre.capitalize()
+
+    @property
+    def precio(self) -> float:
+        return round(self._precio, 2)
+
+    @precio.setter
+    def precio(self, nuevo_precio: float) -> None:
+        self._precio = nuevo_precio
 
 
 # NO MODIFICAR - INICIO

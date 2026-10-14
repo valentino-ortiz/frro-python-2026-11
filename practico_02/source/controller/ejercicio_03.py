@@ -11,7 +11,16 @@ comando (estando parados dentro de la carpeta practico_02):
 $PATH$/practico_02> python -m source.controller.ejercicio_03
 """
 
-# Completar
+# Imports absolutos desde practico_02: con `python -m` el paquete raíz es
+# `source`, por lo que `...main` quedaría fuera del paquete. Además,
+# test_config y deploy_travis (los que validan los asserts) están en config/ y
+# config/ci_cd/, no en source/tests/ como indica el enunciado.
+import main
+from config import test_config
+from config.ci_cd import deploy_travis
+from source import util
+from source.controller import controller
+from source.data import database
 
 # NO MODIFICAR - INICIO
 assert main.name == "main"

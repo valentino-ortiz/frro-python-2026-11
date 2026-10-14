@@ -15,7 +15,19 @@ class Persona:
     - es_mayor_edad(): indica si es mayor de edad, devuelve un booleano.
     """
 
-    # Completar
+    # Versión base con __init__ explícito (sin dataclass): es el punto de
+    # partida que se reescribe más abajo con @dataclass.
+    def __init__(
+        self, nombre: str, edad: int, sexo: str, peso: float, altura: float
+    ) -> None:
+        self.nombre = nombre
+        self.edad = edad
+        self.sexo = sexo
+        self.peso = peso
+        self.altura = altura
+
+    def es_mayor_edad(self) -> bool:
+        return self.edad >= 18
 
 
 # NO MODIFICAR - INICIO
@@ -33,7 +45,16 @@ from dataclasses import dataclass
 class Persona:
     """Re-Escribir utilizando DataClasses"""
 
-    # Completar
+    # @dataclass genera __init__, __repr__ y __eq__ a partir de las
+    # anotaciones, así que solo queda declarar los campos y el método.
+    nombre: str
+    edad: int
+    sexo: str
+    peso: float
+    altura: float
+
+    def es_mayor_edad(self) -> bool:
+        return self.edad >= 18
 
 
 # NO MODIFICAR - INICIO

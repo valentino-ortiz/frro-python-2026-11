@@ -19,7 +19,15 @@ def combinar_basico(nombres: List[str], precios: List[float]) -> Tuple[Any]:
 
     Restricción: Resolver utilizando un bucle for.
     """
-    pass # Completar
+
+    # Se recorre por índice porque hay que tomar la misma posición de ambas
+    # listas; es la base que enumerate y zip luego simplifican.
+    resultado = []
+
+    for i in range(len(nombres)):
+        resultado.append((nombres[i], precios[i]))
+
+    return tuple(resultado)
 
 
 # NO MODIFICAR - INICIO
@@ -43,7 +51,15 @@ def combinar_enumerate(nombres: List[str], precios: List[float], ids: List[int])
     """Re-Escribir utilizando enumerate y agregando un nuevo componente.
     Referencia: https://docs.python.org/3/library/functions.html#enumerate
     """
-    pass # Completar
+
+    # enumerate entrega el índice junto al nombre sin llevar la cuenta a mano
+    # con range(len(...)); el índice sirve para tomar precio e id.
+    resultado = []
+
+    for i, nombre in enumerate(nombres):
+        resultado.append((nombre, precios[i], ids[i]))
+
+    return tuple(resultado)
 
 
 # NO MODIFICAR - INICIO
@@ -67,7 +83,10 @@ def combinar_zip(nombres: List[str], precios: List[float], ids: List[int]) -> Tu
     """Re-Escribir utilizando zip.
     Referencia: https://docs.python.org/3/library/functions.html#zip
     """
-    pass # Completar
+
+    # zip empareja las listas posición a posición sin manejar índices: más corto
+    # y legible que enumerate cuando no hace falta conocer la posición.
+    return tuple(zip(nombres, precios, ids))
 
 
 # NO MODIFICAR - INICIO
@@ -93,7 +112,10 @@ def combinar_zip_args(*args) -> Tuple[Any]:
     """Re-Escribir utilizando zip y una cantidad arbitraria de componentes.
     Referencia: https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists
     """
-    pass # Completar
+
+    # *args recibe cualquier cantidad de listas y zip(*args) las desempaqueta:
+    # la función no cambia aunque se agreguen o saquen componentes.
+    return tuple(zip(*args))
 
 
 # NO MODIFICAR - INICIO

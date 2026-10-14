@@ -1,8 +1,10 @@
 """Base de Datos SQL - Uso de múltiples tablas"""
 
 import datetime
+import sqlite3
 
 from practico_04.ejercicio_02 import agregar_persona
+from practico_04.ejercicio_04 import buscar_persona
 from practico_04.ejercicio_06 import reset_tabla
 
 
@@ -20,8 +22,41 @@ def agregar_peso(id_persona, fecha, peso):
     - ID del peso registrado.
     - False en caso de no cumplir con alguna validacion."""
 
-    pass # Completar
+    # La existencia de la persona se valida reutilizando buscar_persona. Como
+    # las fechas se guardan como AAAA-MM-DD, comparar el texto con `>` equivale
+    # a comparar fechas.
+    if buscar_persona(id_persona) is False:
+        return False
 
+    with sqlite3.connect("personas.db") as conexion:
+        cursor = conexion.cursor()
+
+        # Validar que no exista un registro posterior para esa persona
+        cursor.execute("""
+            SELECT *
+            FROM PersonaPeso
+            WHERE IdPersona = ?
+              AND Fecha > ?
+        """, (
+            id_persona,
+            fecha.strftime("%Y-%m-%d")
+        ))
+
+        registro_posterior = cursor.fetchone()
+
+        if registro_posterior is not None:
+            return False
+
+        cursor.execute("""
+            INSERT INTO PersonaPeso (IdPersona, Fecha, Peso)
+            VALUES (?, ?, ?)
+        """, (
+            id_persona,
+            fecha.strftime("%Y-%m-%d"),
+            peso
+        ))
+
+        return cursor.lastrowid
 
 # NO MODIFICAR - INICIO
 @reset_tabla

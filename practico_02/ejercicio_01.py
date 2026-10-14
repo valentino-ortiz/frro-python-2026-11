@@ -17,8 +17,12 @@ $PATH$/practico_02> python -m ejercicio_01
 Referencia: https://docs.python.org/3/reference/import.html#the-import-system
 """
 
-# Completar
-
+# Imports absolutos: en ambas formas de invocación practico_02 queda en
+# sys.path, mientras que uno relativo fallaría porque el archivo no pertenece
+# a ningún paquete.
+import main
+from source import util
+from source.controller import controller
 
 # NO MODIFICAR - INICIO
 assert main.name == "main"

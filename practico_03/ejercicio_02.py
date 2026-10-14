@@ -10,7 +10,19 @@ class Articulo:
           clase (@classmethod) con una variable de clase
     """
 
-    # Completar
+    # El contador vive en la clase y lo incrementa un @classmethod: todas las
+    # instancias comparten la misma secuencia usando solo lo que pide la
+    # restricción (__init__, un método de clase y una variable de clase).
+    _last_id = 0  # variable de clase
+
+    def __init__(self, nombre=None):
+        self.nombre = nombre
+        self.id_ = self._generar_id()
+
+    @classmethod
+    def _generar_id(cls):
+        cls._last_id += 1
+        return cls._last_id
 
 
 # NO MODIFICAR - INICIO

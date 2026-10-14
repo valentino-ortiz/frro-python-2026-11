@@ -1,8 +1,10 @@
 """Base de datos SQL - Listar"""
 
 import datetime
+import sqlite3
 
 from practico_04.ejercicio_02 import agregar_persona
+from practico_04.ejercicio_04 import buscar_persona
 from practico_04.ejercicio_06 import reset_tabla
 from practico_04.ejercicio_07 import agregar_peso
 
@@ -30,7 +32,24 @@ def listar_pesos(id_persona):
 
     - False en caso de no cumplir con alguna validacion.
     """
-    return []
+
+    # fetchall() ya devuelve la lista de tuplas (fecha, peso) que pide el
+    # enunciado, y ORDER BY garantiza el orden cronológico (las fechas se
+    # guardan como AAAA-MM-DD, por lo que ordenan bien como texto).
+    if buscar_persona(id_persona) is False:
+        return False
+
+    with sqlite3.connect("personas.db") as conexion:
+        cursor = conexion.cursor()
+
+        cursor.execute("""
+            SELECT Fecha, Peso
+            FROM PersonaPeso
+            WHERE IdPersona = ?
+            ORDER BY Fecha
+        """, (id_persona,))
+
+        return cursor.fetchall()
 
 
 # NO MODIFICAR - INICIO

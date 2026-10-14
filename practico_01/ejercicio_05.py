@@ -9,7 +9,16 @@ def multiplicar_basico(numeros: Iterable[float]) -> float:
 
     Restricciones: No usar bibliotecas auxiliares (Numpy, math, pandas).
     """
-    pass # Completar
+    # `if not numeros` es la forma idiomática de preguntar por vacío (vale para
+    # list y range); el 1 inicial es el neutro del producto y *= acumula.
+    if not numeros:
+        return 0
+
+    producto = 1
+    for numero in numeros:
+        producto *= numero
+
+    return producto
 
 
 # NO MODIFICAR - INICIO
@@ -31,7 +40,12 @@ def multiplicar_reduce(numeros: Iterable[float]) -> float:
     """CHALLENGE OPCIONAL - Re-escribir utilizando reduce.
     Referencia: https://docs.python.org/3.8/library/functools.html#functools.reduce
     """
-    pass # Completar
+    # Se corta el caso vacío antes porque reduce sin valor inicial lanza
+    # TypeError con un iterable vacío; el lambda evita depender de otro módulo.
+    if not numeros:
+        return 0
+
+    return reduce(lambda a, b: a * b, numeros)
 
 
 # NO MODIFICAR - INICIO
