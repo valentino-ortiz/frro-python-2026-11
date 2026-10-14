@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Gestión de Socios{% endblock %}
+
+{% block content %}
+<div class="card p-4">
+    <div class="mb-4">
+        <h2 class="h4 mb-1">Gestión de Socios</h2>
+        <p class="text-muted small mb-0">Seleccione un socio de la tabla y presione <strong>Modificar</strong> o <strong>Baja</strong>, o presione <strong>Alta</strong> para registrar uno nuevo.</p>
+    </div>
+
+    <!-- Formulario principal con los botones Alta, Baja y Modificar -->
+    <form method="POST" action="{{ url_for('index') }}" id="form-principal">
+        <div class="d-flex gap-2 mb-3">
+            <!-- Botón Alta -->
+            <a href="{{ url_for('alta') }}" class="btn btn-primary" id="btn-alta">
+                <i class="bi bi-person-plus-fill me-1"></i> Alta
+            </a>
+            <!-- Botón Modificar -->
+            <button type="submit" name="accion" value="modificar" class="btn btn-warning" id="btn-modificar">
+                <i class="bi bi-pencil-square me-1"></i> Modificar
+            </button>
+            <!-- Botón Baja -->
+            <button type="submit" name="accion" value="baja" class="btn btn-danger" id="btn-baja"
+                    onclick="return confirm('¿Confirma que desea dar de baja al socio seleccionado?');">
+                <i class="bi bi-trash-fill me-1"></i> Baja
+            </button>
+        </div>
+
+        {% if socios %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0" id="tabla-socios">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;" class="text-center">Sel.</th>
+                            <th style="width: 80px;">ID</th>
+                            <th>DNI</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for socio in socios %}
+                        <tr>
+                            <td class="text-center">
+                                <input class="form-check-input" type="radio" name="id_socio" value="{{ socio.id }}" id="socio_{{ socio.id }}">
+                            </td>
+                            <td><label for="socio_{{ socio.id }}" class="fw-bold text-secondary mb-0 w-100" style="cursor: pointer;">#{{ socio.id }}</label></td>
+                            <td><label for="socio_{{ socio.id }}" class="mb-0 w-100" style="cursor: pointer;">{{ socio.dni }}</label></td>
+                            <td><label for="socio_{{ socio.id }}" class="mb-0 w-100" style="cursor: pointer;">{{ socio.nombre }}</label></td>
+                            <td><label for="socio_{{ socio.id }}" class="mb-0 w-100" style="cursor: pointer;">{{ socio.apellido }}</label></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-inbox text-muted fs-1 d-block mb-3"></i>
+                <h5 class="text-muted">No hay socios registrados</h5>
+                <p class="text-secondary small">Presione en <strong>Alta</strong> para registrar el primer socio.</p>
+            </div>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
